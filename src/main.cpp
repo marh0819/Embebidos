@@ -9,7 +9,7 @@ const char* password = "miguelRivera1";
 
 #define LED 2 // LED
 // DHT Sensor
-uint8_t DHTPin = 4;
+uint8_t DHTPin = 15;
 
 // Initialize DHT sensor.
 DHT dht(DHTPin, DHTTYPE);
@@ -54,8 +54,10 @@ void setup() {
 }
 
 void loop() {
- Temperature = dht.readTemperature(); // Gets the values of the temperature
- Humidity = dht.readHumidity(); // Gets the values of the humidity
+  
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
  // Check if a client has connected
  WiFiClient client = server.available();
  if (!client) {
@@ -106,11 +108,11 @@ void loop() {
 
  client.println("<br><br>");
  client.print("Temperature: ");
- client.print(Temperature);
+ client.print(t);
  client.print("C");
  client.println("<br><br>");
  client.print("Humidity: ");
- client.print(Humidity);
+ client.print(h);
  client.print("%");
 
  delay(1);
